@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EnvelopesComparer": {
+      "commandName": "Project",
+      "commandLineArgs": "4 9 5 10"
+    }
+  }
+}
