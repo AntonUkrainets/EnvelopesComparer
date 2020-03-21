@@ -18,7 +18,8 @@ namespace EnvelopesComparer
                 new ConsoleLogger()
             );
 
-            var environment = new AppEnvironment();
+            IConsoleManager consoleManager = new ConsoleManager();
+            var environment = new AppEnvironment(consoleManager);
 
             try
             {
@@ -26,13 +27,11 @@ namespace EnvelopesComparer
 
                 var analysis = environment.CheckEnvelopes(envelopes);
 
-                IConsoleManager consoleManager = new ConsoleManager();
-
                 do
                 {
-                    consoleManager.Write(analysis);
+                    consoleManager.WriteLine($"{analysis}");
 
-                    envelopes = environment.RequestExtraEnvelopes(consoleManager);
+                    envelopes = environment.RequestExtraEnvelopes();
 
                     if (envelopes == null)
                         break;

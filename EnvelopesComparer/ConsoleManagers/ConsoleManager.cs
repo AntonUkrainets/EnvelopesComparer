@@ -5,16 +5,16 @@ namespace EnvelopesComparer.ConsoleManagers
 {
     public class ConsoleManager : IConsoleManager
     {
-        public string Read()
+        public string ReadLine()
         {
             var inputString = Console.ReadLine();
 
             return inputString;
         }
 
-        public void Write(object text)
+        public void WriteLine(string text)
         {
-            Console.WriteLine($"{text}");
+            Console.WriteLine(text);
         }
     }
 }

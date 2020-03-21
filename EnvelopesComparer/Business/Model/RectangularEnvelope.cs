@@ -1,6 +1,6 @@
 ﻿using EnvelopesComparer.Business.Model.Interfaces;
 
-namespace EnvelopesComparer.Model
+namespace EnvelopesComparer.Business.Model
 {
     public class RectangularEnvelope : IEnvelope
     {

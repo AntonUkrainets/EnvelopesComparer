@@ -1,4 +1,4 @@
-﻿using EnvelopesComparer.Model;
+﻿using EnvelopesComparer.Business.Model;
 
 namespace EnvelopesComparer.Extensions
 {

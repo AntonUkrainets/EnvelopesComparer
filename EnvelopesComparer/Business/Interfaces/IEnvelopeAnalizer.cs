@@ -1,5 +1,5 @@
-﻿using EnvelopesComparer.Business.Model.Interfaces;
-using EnvelopesComparer.Model;
+﻿using EnvelopesComparer.Business.Model;
+using EnvelopesComparer.Business.Model.Interfaces;
 
 namespace EnvelopesComparer.Business.Interfaces
 {

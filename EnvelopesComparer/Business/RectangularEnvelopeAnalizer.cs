@@ -1,7 +1,7 @@
 ﻿using EnvelopesComparer.Business.Interfaces;
+using EnvelopesComparer.Business.Model;
 using EnvelopesComparer.Business.Model.Interfaces;
 using EnvelopesComparer.Extensions;
-using EnvelopesComparer.Model;
 
 namespace EnvelopesComparer.Business
 {

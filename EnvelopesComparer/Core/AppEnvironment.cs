@@ -1,8 +1,8 @@
 ﻿using System;
 using EnvelopesComparer.Business;
+using EnvelopesComparer.Business.Model;
 using EnvelopesComparer.Business.Model.Interfaces;
 using EnvelopesComparer.ConsoleManagers.Interfaces;
-using EnvelopesComparer.Model;
 using EnvelopesComparer.Parser;
 
 namespace EnvelopesComparer.Core
@@ -11,12 +11,14 @@ namespace EnvelopesComparer.Core
     {
         #region Private Members
 
+        private readonly IConsoleManager consoleManager;
         private readonly RectangularEnvelopeParser rectangularEnvelopeParser;
 
         #endregion
 
-        public AppEnvironment()
+        public AppEnvironment(IConsoleManager consoleManager)
         {
+            this.consoleManager = consoleManager;
             rectangularEnvelopeParser = new RectangularEnvelopeParser();
         }
 
@@ -30,13 +32,13 @@ namespace EnvelopesComparer.Core
             return envelopes;
         }
 
-        public IEnvelope[] RequestExtraEnvelopes(IConsoleManager consoleManager)
+        public IEnvelope[] RequestExtraEnvelopes()
         {
-            if (!CompareNewEnvelopesRequired(consoleManager))
+            if (!CompareNewEnvelopesRequired())
                 return null;
 
-            var inputString = consoleManager.Read();
-            var sizes = inputString.Split(' ');
+            var inputString = consoleManager.ReadLine();
+            var sizes = inputString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             var envelopes = Parse(sizes);
 
@@ -59,16 +61,16 @@ namespace EnvelopesComparer.Core
             return false;
         }
 
-        private bool CompareNewEnvelopesRequired(IConsoleManager consoleManager)
+        private bool CompareNewEnvelopesRequired()
         {
-            consoleManager.Write("Compare new envelopes?");
+            consoleManager.WriteLine("Compare new envelopes?");
 
-            var response = consoleManager.Read();
+            var response = consoleManager.ReadLine();
 
-            return CanCompareNewEnvelopes(response);
+            return CompareNewEnvelopes(response);
         }
 
-        private bool CanCompareNewEnvelopes(string response)
+        private bool CompareNewEnvelopes(string response)
         {
             return string.Equals(response, "yes", StringComparison.InvariantCultureIgnoreCase)
                 || string.Equals(response, "y", StringComparison.InvariantCultureIgnoreCase);

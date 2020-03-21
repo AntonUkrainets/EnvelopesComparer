@@ -2,7 +2,7 @@
 {
     public interface IConsoleManager
     {
-        string Read();
-        void Write(object text);
+        string ReadLine();
+        void WriteLine(string text);
     }
 }

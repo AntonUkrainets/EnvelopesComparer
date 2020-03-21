@@ -1,9 +1,9 @@
 ﻿using EnvelopesComparer.Business;
 using EnvelopesComparer.Business.Interfaces;
-using EnvelopesComparer.Model;
+using EnvelopesComparer.Business.Model;
 using Xunit;
 
-namespace EnvelopesComparerTests
+namespace EnvelopesComparerTests.Business
 {
     public class RectangularEnvelopeAnalizerTests
     {
@@ -19,7 +19,7 @@ namespace EnvelopesComparerTests
         }
 
         [Fact]
-        public void RectangularEnvelopeAnalizer_CanAnalize_Test()
+        public void RectangularEnvelopeAnalizer_CanAnalize()
         {
             // Arrange
             var rectangularEnvelope = new RectangularEnvelope(width: 0, height: 0);
@@ -35,11 +35,12 @@ namespace EnvelopesComparerTests
         [InlineData(1, 2, 3, 4)]
         [InlineData(2, 5, 1, 4)]
         [InlineData(5, 4, 6, 10)]
-        public void RectangularEnvelopeAnalizer_Analize_Positive_Test(
+        public void RectangularEnvelopeAnalizer_Analize_Positive(
             double widthA,
             double heightA,
             double widthB,
-            double heightB)
+            double heightB
+        )
         {
             // Arrange
             var envelopeA = new RectangularEnvelope(widthA, heightA);
@@ -57,11 +58,12 @@ namespace EnvelopesComparerTests
         [InlineData(1, 0, 2, 0)]
         [InlineData(5, 5, 5, 5)]
         [InlineData(15, 11, 3, 16)]
-        public void RectangularEnvelopeAnalizer_Analize_Negative_Test(
+        public void RectangularEnvelopeAnalizer_Analize_Negative(
             double widthA,
             double heightA,
             double widthB,
-            double heightB)
+            double heightB
+        )
         {
             // Arrange
             var envelopeA = new RectangularEnvelope(widthA, heightA);

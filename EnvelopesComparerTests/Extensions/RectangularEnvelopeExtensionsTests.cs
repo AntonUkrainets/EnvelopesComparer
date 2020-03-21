@@ -1,8 +1,8 @@
-﻿using EnvelopesComparer.Extensions;
-using EnvelopesComparer.Model;
+﻿using EnvelopesComparer.Business.Model;
+using EnvelopesComparer.Extensions;
 using Xunit;
 
-namespace EnvelopesComparerTests
+namespace EnvelopesComparerTests.Extensions
 {
     public class RectangularEnvelopeExtensionsTests
     {
@@ -10,7 +10,7 @@ namespace EnvelopesComparerTests
         [InlineData(1, 2, 3, 4)]
         [InlineData(1, 4, 2, 5)]
         [InlineData(5, 4, 6, 10)]
-        public void IsLessThan_AToB_Positive_Test(
+        public void IsLessThan_AToB_Positive(
             double widthA,
             double heightA,
             double widthB,
@@ -31,7 +31,7 @@ namespace EnvelopesComparerTests
         [InlineData(3, 4, 1, 2)]
         [InlineData(2, 5, 1, 4)]
         [InlineData(6, 10, 5, 4)]
-        public void IsLessThan_AToB_Negative_Test(
+        public void IsLessThan_AToB_Negative(
             double widthA,
             double heightA,
             double widthB,
@@ -52,7 +52,7 @@ namespace EnvelopesComparerTests
         [InlineData(3, 4, 1, 2)]
         [InlineData(2, 5, 1, 4)]
         [InlineData(6, 10, 5, 4)]
-        public void IsLessThan_BToA_Positive_Test(
+        public void IsLessThan_BToA_Positive(
             double widthA,
             double heightA,
             double widthB,
@@ -73,7 +73,7 @@ namespace EnvelopesComparerTests
         [InlineData(1, 2, 3, 4)]
         [InlineData(1, 4, 2, 5)]
         [InlineData(5, 4, 6, 10)]
-        public void IsLessThan_BToA_Negative_Test(
+        public void IsLessThan_BToA_Negative(
             double widthA,
             double heightA,
             double widthB,

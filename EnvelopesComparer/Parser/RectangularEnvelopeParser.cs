@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using EnvelopesComparer.Business.Model;
 using EnvelopesComparer.Business.Model.Interfaces;
-using EnvelopesComparer.Model;
 using EnvelopesComparer.Parser.Interfaces;
 
 namespace EnvelopesComparer.Parser

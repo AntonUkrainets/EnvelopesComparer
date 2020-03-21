@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EnvelopesComparer.Business.Model;
+using EnvelopesComparer.ConsoleManagers.Interfaces;
 using EnvelopesComparer.Core;
-using EnvelopesComparer.Model;
 using EnvelopesComparer.Parser;
+using EnvelopesComparerTests.Comparer;
+using Moq;
 using Xunit;
 
 namespace EnvelopesComparerTests.Parser
@@ -13,19 +16,21 @@ namespace EnvelopesComparerTests.Parser
         #region Private Members
 
         private readonly RectangularEnvelopeParser rectangularEnvelopeParser;
+        private readonly Mock<IConsoleManager> mockConsoleManager;
 
         #endregion
 
         public RectangularEnvelopeParseTests()
         {
             rectangularEnvelopeParser = new RectangularEnvelopeParser();
+            mockConsoleManager = new Mock<IConsoleManager>();
         }
 
         [Theory]
         [InlineData("0", "0", "0", "0")]
         [InlineData("-1", "-2", "-3", "-4")]
         [InlineData("1", "2", "3", "4")]
-        public void ParseArgs_Positive_Test(params string[] args)
+        public void CanParse_Positive(params string[] args)
         {
             // Act
             var actualValue = rectangularEnvelopeParser.CanParse(args);
@@ -40,7 +45,7 @@ namespace EnvelopesComparerTests.Parser
         [InlineData("1")]
         [InlineData("1", "2", "3")]
         [InlineData("1", "2", "3", "4", "5")]
-        public void ParseArgs_Negative_Test(params string[] args)
+        public void CanParse_Negative(params string[] args)
         {
             // Act
             var actualValue = rectangularEnvelopeParser.CanParse(args);
@@ -52,7 +57,7 @@ namespace EnvelopesComparerTests.Parser
         [Theory]
         [InlineData(0, 0, 0, 0, "0", "0", "0", "0")]
         [InlineData(5, 10, 4, 9, "5", "10", "4", "9")]
-        public void ParseArgsToEnvelopes_Positive_Test(
+        public void ParseToEnvelopes_Positive(
             double widthA,
             double heightA,
             double widthB,
@@ -67,7 +72,7 @@ namespace EnvelopesComparerTests.Parser
                 new RectangularEnvelope(widthB, heightB)
             };
 
-            var environment = new AppEnvironment();
+            var environment = new AppEnvironment(mockConsoleManager.Object);
 
             // Act
             var actualEnvelopes = environment.Parse(args);
@@ -85,9 +90,10 @@ namespace EnvelopesComparerTests.Parser
         [InlineData(" ")]
         [InlineData("5", "10", "4")]
         [InlineData("5", "10", "4", "6", "9")]
-        public void ParseArgsToEnvelopes_Negative_Test(params string[] args)
+        public void ParseToEnvelopes_Negative(params string[] args)
         {
-            var environment = new AppEnvironment();
+            // Arrange
+            var environment = new AppEnvironment(mockConsoleManager.Object);
 
             // Assert
             Assert.Throws<FormatException>(() => environment.Parse(args));

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using EnvelopesComparer.Model;
+using EnvelopesComparer.Business.Model;
 
-namespace EnvelopesComparerTests
+namespace EnvelopesComparerTests.Comparer
 {
     public class RectangularEnvelopeEqualityComparer : EqualityComparer<RectangularEnvelope>
     {
@@ -15,9 +15,7 @@ namespace EnvelopesComparerTests
                 && a.Width == b.Width;
         }
 
-        public override int GetHashCode(
-            [DisallowNull] RectangularEnvelope obj
-        )
+        public override int GetHashCode([DisallowNull] RectangularEnvelope obj)
         {
             return obj.GetHashCode();
         }
