@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using EnvelopesComparer.ConsoleManagers;
+using EnvelopesComparer.ConsoleManagers.Interfaces;
 using EnvelopesComparer.Core;
-using Liba.Logger.Implements;
+using Liba.Logger;
 
 namespace EnvelopesComparer
 {
@@ -16,19 +18,26 @@ namespace EnvelopesComparer
                 new ConsoleLogger()
             );
 
-            AppEnvironment environment = new AppEnvironment(logger);
+            var environment = new AppEnvironment();
 
             try
             {
                 var envelopes = environment.Parse(args);
 
+                var analysis = environment.CheckEnvelopes(envelopes);
+
+                IConsoleManager consoleManager = new ConsoleManager();
+
                 do
                 {
-                    var analysis = environment.CheckEnvelopes(envelopes);
+                    consoleManager.Write(analysis);
 
-                    Console.WriteLine(analysis);
+                    envelopes = environment.RequestExtraEnvelopes(consoleManager);
 
-                    envelopes = environment.RequestExtraEnvelopes();
+                    if (envelopes == null)
+                        break;
+
+                    analysis = environment.CheckEnvelopes(envelopes);
                 }
                 while (envelopes.Any());
             }

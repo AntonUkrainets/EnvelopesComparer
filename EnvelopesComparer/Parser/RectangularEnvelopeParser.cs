@@ -13,12 +13,19 @@ namespace EnvelopesComparer.Parser
             return args.Length == 4;
         }
 
-        public IEnumerable<IEnvelope> Parse(string[] args)
+        public IEnvelope[] Parse(string[] args)
         {
             TryConvertToDouble(args[0], out double widthA);
+            CheckPositiveNumbers(widthA);
+
             TryConvertToDouble(args[1], out double heightA);
+            CheckPositiveNumbers(heightA);
+
             TryConvertToDouble(args[2], out double widthB);
+            CheckPositiveNumbers(widthB);
+
             TryConvertToDouble(args[3], out double heightB);
+            CheckPositiveNumbers(heightB);
 
             return new IEnvelope[]
             {
@@ -27,10 +34,16 @@ namespace EnvelopesComparer.Parser
             };
         }
 
-        private void TryConvertToDouble(string str, out double value)
+        private void TryConvertToDouble(string inputString, out double value)
         {
-            if (!double.TryParse(str, out value))
-                throw new ArgumentException($"Can't convert '{value}' to double.");
+            if (!double.TryParse(inputString, out value))
+                throw new ArgumentException($"Number '{inputString}' has incorrect format");
+        }
+
+        private void CheckPositiveNumbers(double value)
+        {
+            if (value < 0)
+                throw new ArgumentException($"Number '{value}' must be greather 0");
         }
     }
 }

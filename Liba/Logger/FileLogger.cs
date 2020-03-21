@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using Liba.Logger.Interfaces;
 
-namespace Liba.Logger.Implements
+namespace Liba.Logger
 {
     public class FileLogger : ILogger
     {

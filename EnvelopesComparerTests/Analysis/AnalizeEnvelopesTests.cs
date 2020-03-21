@@ -1,27 +1,32 @@
-﻿using System.Collections.Generic;
-using EnvelopesComparer.Business.Model.Interfaces;
-using EnvelopesComparer.Core;
+﻿using EnvelopesComparer.Core;
 using EnvelopesComparer.Model;
-using Liba.Logger.Implements;
 using Xunit;
 
 namespace EnvelopesComparerTests.Analysis
 {
     public class AnalizeEnvelopesTests
     {
-        [Fact]
-        public void CanAnalizeEnvelopes_51049Test()
+        [Theory]
+        [InlineData(1, 1, 0, 0)]
+        [InlineData(5, 6, 8, 10)]
+        [InlineData(5, 3, 2, 4)]
+        public void AnalizeEnvelopes_Positive_Test(
+            double widthA,
+            double heightA,
+            double widthB,
+            double heightB
+        )
         {
             // Arrange
             var expectedValue = true;
 
-            var envelopes = new List<RectangularEnvelope>
+            var envelopes = new RectangularEnvelope[]
             {
-                new RectangularEnvelope(5, 10),
-                new RectangularEnvelope(4, 9)
+                new RectangularEnvelope(widthA, heightA),
+                new RectangularEnvelope(widthB, heightB)
             };
 
-            var environment = new AppEnvironment(new AggregatedLogger());
+            var environment = new AppEnvironment();
 
             // Act
             var actualValue = environment.CheckEnvelopes(envelopes);
@@ -30,19 +35,29 @@ namespace EnvelopesComparerTests.Analysis
             Assert.Equal(expectedValue, actualValue);
         }
 
-        [Fact]
-        public void CantAnalizeEnvelopes_510410Test()
+        [Theory]
+        [InlineData(0, 0, 0, 0)]
+        [InlineData(5, 10, 4, 10)]
+        [InlineData(5, 5, 5, 5)]
+        [InlineData(10, 10, 10, 10)]
+        [InlineData(3, 12, 5, 6)]
+        public void AnalizeEnvelopes_Negative_Test(
+            double widthA, 
+            double heightA,
+            double widthB,
+            double heightB
+        )
         {
             // Arrange
             var expectedValue = false;
 
-            var envelopes = new List<IEnvelope>
+            var envelopes = new RectangularEnvelope[]
             {
-                new RectangularEnvelope(5, 10),
-                new RectangularEnvelope(4, 10)
+                new RectangularEnvelope(widthA, heightA),
+                new RectangularEnvelope(widthB, heightB)
             };
 
-            var environment = new AppEnvironment(new AggregatedLogger());
+            var environment = new AppEnvironment();
 
             // Act
             var actualValue = environment.CheckEnvelopes(envelopes);

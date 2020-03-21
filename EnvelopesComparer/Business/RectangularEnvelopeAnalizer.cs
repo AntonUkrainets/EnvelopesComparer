@@ -17,8 +17,8 @@ namespace EnvelopesComparer.Business
             RectangularEnvelope envelopeB
         )
         {
-            return envelopeA.IsBiggerThan(envelopeB)
-                || envelopeB.IsBiggerThan(envelopeA);
+            return envelopeA.IsLessThan(envelopeB)
+                || envelopeB.IsLessThan(envelopeA);
         }
     }
 }

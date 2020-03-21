@@ -1,7 +1,7 @@
 ﻿using System;
 using Liba.Logger.Interfaces;
 
-namespace Liba.Logger.Implements
+namespace Liba.Logger
 {
     public class ConsoleLogger : ILogger
     {
